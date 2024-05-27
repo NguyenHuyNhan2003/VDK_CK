@@ -1,0 +1,10 @@
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\Final_Project\BluetoothApp\bin\Debug\BluetoothApp.exe.config
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\Final_Project\BluetoothApp\bin\Debug\BluetoothApp.exe
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\Final_Project\BluetoothApp\bin\Debug\BluetoothApp.pdb
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\Final_Project\BluetoothApp\obj\Debug\BluetoothApp.csproj.AssemblyReference.cache
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\Final_Project\BluetoothApp\obj\Debug\BluetoothApp.Form1.resources
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\Final_Project\BluetoothApp\obj\Debug\BluetoothApp.Properties.Resources.resources
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\Final_Project\BluetoothApp\obj\Debug\BluetoothApp.csproj.GenerateResource.cache
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\Final_Project\BluetoothApp\obj\Debug\BluetoothApp.csproj.CoreCompileInputs.cache
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\Final_Project\BluetoothApp\obj\Debug\BluetoothApp.exe
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\Final_Project\BluetoothApp\obj\Debug\BluetoothApp.pdb
