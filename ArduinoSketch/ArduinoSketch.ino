@@ -11,6 +11,7 @@ void setup() {
   pinMode(KEY, OUTPUT);
   digitalWrite(KEY, LOW);
   pinMode(LED, OUTPUT);
+  digitalWrite(LED, LOW);
   delay(3000);
   Serial.begin(9600);
   mySerial.begin(38400);
@@ -27,19 +28,17 @@ void loop() {
       // Chuyển đổi var sang ký tự và so sánh
       if (var == "120") {
         digitalWrite(LED, HIGH);
-        Serial.println("got data");
         Serial.println(var);
-        Serial.println("end of data");
       } else if (var == "0") {
         digitalWrite(LED, LOW);
-        Serial.println("got data");
         Serial.println(var);
-        Serial.println("end of data");
       } else if (var == "248") {
         digitalWrite(LED, LOW);
-        Serial.println("got data");
+        delay(1000);
+        digitalWrite(LED, HIGH);
+        delay(1000);
+        digitalWrite(LED, LOW);
         Serial.println(var);
-        Serial.println("end of data");
       }
     }
     int SensorValue = analogRead(A0);
