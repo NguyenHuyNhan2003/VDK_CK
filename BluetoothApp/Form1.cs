@@ -67,8 +67,6 @@ namespace BluetoothApp
 
             }
 
-
-
         }
 
         private void escapeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -81,51 +79,30 @@ namespace BluetoothApp
             if (!serialPortIncoming.IsOpen)
 
             {
-
-
-
                 labelPortInCon.Text = ("Chưa kết nối");
-
                 labelPortInCon.ForeColor = Color.Red;
-
             }
 
             else if (serialPortIncoming.IsOpen)
 
             {
 
-
-
                 labelPortInCon.Text = ("Đã kết nối");
-
                 labelPortInCon.ForeColor = Color.Lime;
-
-
 
             }
             if (!serialPortOutgoing.IsOpen)
 
             {
-
-
-
                 labelPortOutCon.Text = ("Chưa kết nối");
-
                 labelPortOutCon.ForeColor = Color.Red;
-
             }
 
             else if (serialPortOutgoing.IsOpen)
 
             {
-
-
-
                 labelPortOutCon.Text = ("Đã kết nối");
-
                 labelPortOutCon.ForeColor = Color.Lime;
-
-
 
             }
         }
@@ -133,9 +110,9 @@ namespace BluetoothApp
         private void Form1_Load(object sender, EventArgs e)
         {
             comboBoxPortOut.DataSource = SerialPort.GetPortNames();
-            comboBoxBaudOut.SelectedIndex = 3;
+            comboBoxBaudOut.SelectedIndex = 5;
             comboBoxPortIn.DataSource = SerialPort.GetPortNames();
-            comboBoxBaudIn.SelectedIndex = 3;
+            comboBoxBaudIn.SelectedIndex = 5;
         }
 
         private void buttonMode_Click(object sender, EventArgs e)
@@ -153,7 +130,7 @@ namespace BluetoothApp
 
             if (serialPortOutgoing.IsOpen)
             {
-                serialPortOutgoing.Write("2");
+                serialPortOutgoing.Write("3");
             }
 
         }
@@ -164,17 +141,26 @@ namespace BluetoothApp
             {
                 if (!serialPortIncoming.IsOpen)
                 {
-                    serialPortIncoming.PortName = comboBoxPortOut.Text;
+                    serialPortIncoming.PortName = comboBoxPortIn.Text;
 
-                    serialPortIncoming.BaudRate = Convert.ToInt32(comboBoxBaudOut.Text);
+                    serialPortIncoming.BaudRate = Convert.ToInt32(comboBoxBaudIn.Text);
 
                     serialPortIncoming.Open();
 
-                }
-            }
-            catch
-            {
+                    labelPortInCon.Text = ("Đã kết nối");
 
+                    labelPortInCon.ForeColor = Color.Lime;
+
+                }
+                else
+                {
+                    MessageBox.Show("Can't connect", "error");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "error");
             }
         }
 
@@ -183,6 +169,8 @@ namespace BluetoothApp
             if (serialPortIncoming.IsOpen)
             {
                 serialPortIncoming.Close();
+                labelPortInCon.Text = ("Chưa kết nối");
+                labelPortInCon.ForeColor = Color.Red;
             }
         }
 
@@ -197,9 +185,19 @@ namespace BluetoothApp
 
                     serialPortOutgoing.Open();
 
+                    labelPortOutCon.Text = ("Đã kết nối");
+
+                    labelPortOutCon.ForeColor = Color.Lime;
+
                 }
-            }catch {
-                
+                else
+                {
+                    MessageBox.Show("Can't connect", "error");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "error");
             }
         }
 
@@ -208,6 +206,8 @@ namespace BluetoothApp
             if (serialPortOutgoing.IsOpen)
             {
                 serialPortOutgoing.Close();
+                labelPortOutCon.Text = ("Chưa kết nối");
+                labelPortOutCon.ForeColor = Color.Red;
             }
         }
 
@@ -227,7 +227,7 @@ namespace BluetoothApp
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Incoming Port: COM... \nOutgoing Port: COM...", "Connection Port");
+            MessageBox.Show("Incoming Port: COM7 \nOutgoing Port: COM6", "Connection Port");
         }
     }
 

@@ -1,0 +1,15 @@
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\VDK_CK\BluetoothApp\bin\Release\BluetoothApp.exe.config
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\VDK_CK\BluetoothApp\bin\Release\BluetoothApp.exe.manifest
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\VDK_CK\BluetoothApp\bin\Release\BluetoothApp.application
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\VDK_CK\BluetoothApp\bin\Release\BluetoothApp.exe
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\VDK_CK\BluetoothApp\bin\Release\BluetoothApp.pdb
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\VDK_CK\BluetoothApp\obj\Release\BluetoothApp.csproj.AssemblyReference.cache
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\VDK_CK\BluetoothApp\obj\Release\BluetoothApp.Form1.resources
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\VDK_CK\BluetoothApp\obj\Release\BluetoothApp.Properties.Resources.resources
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\VDK_CK\BluetoothApp\obj\Release\BluetoothApp.csproj.GenerateResource.cache
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\VDK_CK\BluetoothApp\obj\Release\BluetoothApp.csproj.CoreCompileInputs.cache
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\VDK_CK\BluetoothApp\obj\Release\BluetoothApp.TrustInfo.xml
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\VDK_CK\BluetoothApp\obj\Release\BluetoothApp.exe.manifest
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\VDK_CK\BluetoothApp\obj\Release\BluetoothApp.application
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\VDK_CK\BluetoothApp\obj\Release\BluetoothApp.exe
+C:\Users\nguye\OneDrive\Desktop\U\kì 6\VDK\VDK_CK\BluetoothApp\obj\Release\BluetoothApp.pdb

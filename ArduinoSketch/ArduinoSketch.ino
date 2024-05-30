@@ -4,9 +4,8 @@ SoftwareSerial mySerial(8, 9); // RX | TX
 
 #define KEY 7
 #define LED 13
-bool ok;
-int var;
-String bf = "";
+bool AT;
+String var;
 
 void setup() {
   pinMode(KEY, OUTPUT);
@@ -15,26 +14,42 @@ void setup() {
   delay(3000);
   Serial.begin(9600);
   mySerial.begin(38400);
-  ok = configure_HC05();
+  // configure_HC05();
+  AT = true;
 }
 
 void loop() {
-  if (ok) {
+  if (AT) {
     if (mySerial.available() > 0) {
-      var = mySerial.read();
-      mySerial.println(var);
       
+
+      var = mySerial.read();
       // Chuyển đổi var sang ký tự và so sánh
-      if (var == '1') {
+      if (var == "120") {
         digitalWrite(LED, HIGH);
-      } else if (var == '0') {
+        Serial.println("got data");
+        Serial.println(var);
+        Serial.println("end of data");
+      } else if (var == "0") {
         digitalWrite(LED, LOW);
+        Serial.println("got data");
+        Serial.println(var);
+        Serial.println("end of data");
+      } else if (var == "248") {
+        digitalWrite(LED, LOW);
+        Serial.println("got data");
+        Serial.println(var);
+        Serial.println("end of data");
       }
     }
+    int SensorValue = analogRead(A0);
+    // Serial.println(SensorValue);
+    // delay(1000);
+    // mySerial.write(SensorValue);
   }
 }
 
-bool configure_HC05() {
+void configure_HC05() {
   digitalWrite(KEY, HIGH); // Set KEY high to enter AT mode
   delay(2000);
   Serial.println("Entering AT mode...");
@@ -44,7 +59,6 @@ bool configure_HC05() {
   
   if (!mySerial.find("OK")) {
     Serial.println("Failed to enter AT mode.");
-    return false;
   }
 
   mySerial.println("AT+RMAAD");
@@ -52,7 +66,6 @@ bool configure_HC05() {
 
   if (!mySerial.find("OK")) {
     Serial.println("Failed to clear paired devices.");
-    return false;
   }
 
   mySerial.println("AT+NAME=Nhom11-Bluetooth");
@@ -60,7 +73,6 @@ bool configure_HC05() {
 
   if (!mySerial.find("OK")) {
     Serial.println("Failed to set name.");
-    return false;
   } else {
     Serial.println("New name: Nhom11-Bluetooth");
   }
@@ -70,7 +82,6 @@ bool configure_HC05() {
 
   if (!mySerial.find("OK")) {
     Serial.println("Failed to set password.");
-    return false;
   } else {
     Serial.println("New password: 1234");
   }
@@ -80,7 +91,6 @@ bool configure_HC05() {
 
   if (!mySerial.find("OK")) {
     Serial.println("Failed to set role.");
-    return false;
   } else {
     Serial.println("New role: SLAVE");
   }
@@ -89,12 +99,9 @@ bool configure_HC05() {
   delay(2000);
   if (!mySerial.find("OK")) {
     Serial.println("Failed to reset HC-05.");
-    return false;
   }
 
   digitalWrite(KEY, LOW); // Set KEY low to exit AT mode
   
   Serial.println("Bluetooth Ready!");
-
-  return true;
 }
