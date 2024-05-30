@@ -4,7 +4,8 @@ SoftwareSerial mySerial(8, 9); // RX | TX
 
 #define KEY 7
 #define LED 13
-bool AT;
+bool window_stata_open = false;
+bool manual = true;
 String var;
 
 void setup() {
@@ -16,34 +17,37 @@ void setup() {
   Serial.begin(9600);
   mySerial.begin(38400);
   // configure_HC05();
-  AT = true;
 }
 
 void loop() {
-  if (AT) {
+  if (manual) {
     if (mySerial.available() > 0) {
-      
-
       var = mySerial.read();
       // Chuyển đổi var sang ký tự và so sánh
       if (var == "120") {
         digitalWrite(LED, HIGH);
-        Serial.println(var);
+        // Serial.println(var);
       } else if (var == "0") {
         digitalWrite(LED, LOW);
-        Serial.println(var);
+        // Serial.println(var);
       } else if (var == "248") {
-        digitalWrite(LED, LOW);
-        delay(1000);
-        digitalWrite(LED, HIGH);
-        delay(1000);
-        digitalWrite(LED, LOW);
-        Serial.println(var);
+        manual = !manual;
+        // Serial.println(var);
+      }
+    }
+  }
+  else{
+    if (mySerial.available() > 0) {
+      var = mySerial.read();
+      if (var == "248") {
+        manual = !manual;
       }
     }
     int SensorValue = analogRead(A0);
-    // Serial.println(SensorValue);
-    // delay(1000);
+    Serial.println(SensorValue);
+    int led_analog_write = map(SensorValue, 0, 1023, 0, 255);
+    analogWrite(LED, led_analog_write);
+    delay(1000);
     // mySerial.write(SensorValue);
   }
 }
