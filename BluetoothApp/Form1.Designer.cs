@@ -61,6 +61,8 @@
             this.labelSensor = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.buttonFanOn = new System.Windows.Forms.Button();
+            this.buttonFanOff = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -224,7 +226,7 @@
             this.buttonOpenWindow.BackColor = System.Drawing.Color.Lime;
             this.buttonOpenWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonOpenWindow.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonOpenWindow.Location = new System.Drawing.Point(579, 435);
+            this.buttonOpenWindow.Location = new System.Drawing.Point(579, 369);
             this.buttonOpenWindow.Name = "buttonOpenWindow";
             this.buttonOpenWindow.Size = new System.Drawing.Size(123, 44);
             this.buttonOpenWindow.TabIndex = 13;
@@ -237,7 +239,7 @@
             this.buttonCloseWindow.BackColor = System.Drawing.Color.Red;
             this.buttonCloseWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCloseWindow.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonCloseWindow.Location = new System.Drawing.Point(708, 435);
+            this.buttonCloseWindow.Location = new System.Drawing.Point(708, 369);
             this.buttonCloseWindow.Name = "buttonCloseWindow";
             this.buttonCloseWindow.Size = new System.Drawing.Size(123, 44);
             this.buttonCloseWindow.TabIndex = 14;
@@ -331,9 +333,9 @@
             // progressBarSensor
             // 
             this.progressBarSensor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.progressBarSensor.Location = new System.Drawing.Point(290, 378);
+            this.progressBarSensor.Location = new System.Drawing.Point(288, 378);
             this.progressBarSensor.Name = "progressBarSensor";
-            this.progressBarSensor.Size = new System.Drawing.Size(291, 30);
+            this.progressBarSensor.Size = new System.Drawing.Size(209, 30);
             this.progressBarSensor.TabIndex = 23;
             // 
             // labelSensor
@@ -341,7 +343,7 @@
             this.labelSensor.AutoSize = true;
             this.labelSensor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelSensor.ForeColor = System.Drawing.Color.Black;
-            this.labelSensor.Location = new System.Drawing.Point(422, 355);
+            this.labelSensor.Location = new System.Drawing.Point(375, 355);
             this.labelSensor.Name = "labelSensor";
             this.labelSensor.Size = new System.Drawing.Size(33, 20);
             this.labelSensor.TabIndex = 24;
@@ -352,7 +354,7 @@
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(587, 383);
+            this.label8.Location = new System.Drawing.Point(503, 383);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(51, 20);
             this.label8.TabIndex = 25;
@@ -363,17 +365,45 @@
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(251, 383);
+            this.label9.Location = new System.Drawing.Point(249, 383);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(33, 20);
             this.label9.TabIndex = 26;
             this.label9.Text = "0%";
+            // 
+            // buttonFanOn
+            // 
+            this.buttonFanOn.BackColor = System.Drawing.Color.Lime;
+            this.buttonFanOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonFanOn.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonFanOn.Location = new System.Drawing.Point(579, 435);
+            this.buttonFanOn.Name = "buttonFanOn";
+            this.buttonFanOn.Size = new System.Drawing.Size(123, 44);
+            this.buttonFanOn.TabIndex = 27;
+            this.buttonFanOn.Text = "Bật quạt";
+            this.buttonFanOn.UseVisualStyleBackColor = false;
+            this.buttonFanOn.Click += new System.EventHandler(this.buttonFanOn_Click);
+            // 
+            // buttonFanOff
+            // 
+            this.buttonFanOff.BackColor = System.Drawing.Color.Red;
+            this.buttonFanOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonFanOff.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.buttonFanOff.Location = new System.Drawing.Point(708, 435);
+            this.buttonFanOff.Name = "buttonFanOff";
+            this.buttonFanOff.Size = new System.Drawing.Size(123, 44);
+            this.buttonFanOff.TabIndex = 28;
+            this.buttonFanOff.Text = "Tắt quạt";
+            this.buttonFanOff.UseVisualStyleBackColor = false;
+            this.buttonFanOff.Click += new System.EventHandler(this.buttonFanOff_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(874, 535);
+            this.Controls.Add(this.buttonFanOff);
+            this.Controls.Add(this.buttonFanOn);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.labelSensor);
@@ -445,6 +475,8 @@
         private System.Windows.Forms.Label labelSensor;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button buttonFanOn;
+        private System.Windows.Forms.Button buttonFanOff;
     }
 }
 
