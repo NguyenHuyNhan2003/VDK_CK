@@ -5,14 +5,19 @@ SoftwareSerial mySerial(8, 9); // RX | TX
 #define KEY 7
 #define LED 13
 bool window_stata_open = false;
-bool manual = true;
+bool manual = false;
 String var;
+
+int in1 = 2;
+int in2 = 3;
 
 void setup() {
   pinMode(KEY, OUTPUT);
   digitalWrite(KEY, LOW);
   pinMode(LED, OUTPUT);
   digitalWrite(LED, LOW);
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
   delay(3000);
   Serial.begin(9600);
   mySerial.begin(38400);
@@ -20,6 +25,7 @@ void setup() {
 }
 
 void loop() {
+  openfan();
   if (manual) {
     if (mySerial.available() > 0) {
       var = mySerial.read();
@@ -45,6 +51,10 @@ void loop() {
     }
     int SensorValue = analogRead(A0);
     Serial.println(SensorValue);
+    // while(analogRead(A0) > 400){
+    //   openfan()
+    // }
+    //closefan()
     int led_analog_write = map(SensorValue, 0, 1023, 0, 255);
     analogWrite(LED, led_analog_write);
     delay(1000);
@@ -107,4 +117,14 @@ void configure_HC05() {
   digitalWrite(KEY, LOW); // Set KEY low to exit AT mode
   
   Serial.println("Bluetooth Ready!");
+}
+
+void openfan() {
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, LOW);
+}
+
+void closefan() {
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, LOW);
 }
