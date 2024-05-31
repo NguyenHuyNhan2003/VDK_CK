@@ -1,25 +1,33 @@
 #include <SoftwareSerial.h>
 #include <Servo.h>
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 Servo myServo;
 SoftwareSerial mySerial(8, 9); // RX | TX
-#define SERVO 6
+
+#define SERVO 5
 #define KEY 7
-#define LED 13
+#define LED 6
+#define Fan_pin1 12
+#define Fan_pin2 13
+
 bool is_manual = false;
 bool found_new_data = false;
 String data_received;
 int SensorValue = 0;
-int Fan_pin1 = 2;
-int Fan_pin2 = 3;
 
 void setup() {
   // pinMode(KEY, OUTPUT);
-  digitalWrite(KEY, LOW);
+  // digitalWrite(KEY, LOW);
   pinMode(LED, OUTPUT);
-  digitalWrite(LED, LOW);
   pinMode(Fan_pin1, OUTPUT);
   pinMode(Fan_pin2, OUTPUT);
+
+  lcd.init(); // Khởi động màn hình
+  lcd.backlight();
 
   Serial.begin(9600);
   mySerial.begin(38400);
@@ -34,13 +42,16 @@ void loop() {
 
     String mode = "";
     if (is_manual){
-      mode = "Manual Mode : ";
+      mode = "Manual";
     }
     else{
-      mode = "Auto Mode : ";
+      mode = "Auto";
     }
+    
     Serial.print(mode);
+    Serial.print(" Mode: ");
     Serial.println(SensorValue);
+    Display_On_LCD(SensorValue, mode);
     delay(1000);
 
     int led_analog_write = map(SensorValue, 0, 1023, 0, 255);
@@ -100,6 +111,14 @@ void handle_received_data(){
       found_new_data = false;
     }
   }
+}
+
+void Display_On_LCD(int sensorValue, String mode){
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print(mode + " Mode: ");
+  lcd.setCursor(0, 1);
+  lcd.print(sensorValue);
 }
 
 void openfan() {
