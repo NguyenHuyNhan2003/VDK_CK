@@ -1,7 +1,9 @@
 #include <SoftwareSerial.h>
+#include <Servo.h>
 
+Servo myServo;
 SoftwareSerial mySerial(8, 9); // RX | TX
-
+#define SERVO 6
 #define KEY 7
 #define LED 13
 bool window_stata_open = false;
@@ -21,6 +23,7 @@ void setup() {
   delay(3000);
   Serial.begin(9600);
   mySerial.begin(38400);
+  myServo.attach(SERVO);
   // configure_HC05();
 }
 
@@ -29,12 +32,15 @@ void loop() {
   if (manual) {
     if (mySerial.available() > 0) {
       var = mySerial.read();
-      // Chuyển đổi var sang ký tự và so sánh
+      // Serial.println(var);
+
       if (var == "120") {
         digitalWrite(LED, HIGH);
+        myServo.write(0);
         // Serial.println(var);
       } else if (var == "0") {
         digitalWrite(LED, LOW);
+        myServo.write(90);
         // Serial.println(var);
       } else if (var == "248") {
         manual = !manual;
@@ -45,6 +51,7 @@ void loop() {
   else{
     if (mySerial.available() > 0) {
       var = mySerial.read();
+      // Serial.println(var);
       if (var == "248") {
         manual = !manual;
       }

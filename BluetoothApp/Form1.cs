@@ -71,6 +71,8 @@ namespace BluetoothApp
 
         private void escapeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            serialPortOutgoing.Close();
+            serialPortIncoming.Close();
             Application.Exit();
         }
 
