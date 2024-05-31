@@ -6,21 +6,20 @@ SoftwareSerial mySerial(8, 9); // RX | TX
 #define SERVO 6
 #define KEY 7
 #define LED 13
-bool window_stata_open = false;
-bool manual = false;
-String var;
-
-int in1 = 2;
-int in2 = 3;
+bool is_manual = true;
+String data_received;
+int SensorValue = 0;
+int Fan_pin1 = 2;
+int Fan_pin2 = 3;
 
 void setup() {
-  pinMode(KEY, OUTPUT);
+  // pinMode(KEY, OUTPUT);
   digitalWrite(KEY, LOW);
   pinMode(LED, OUTPUT);
   digitalWrite(LED, LOW);
-  pinMode(in1, OUTPUT);
-  pinMode(in2, OUTPUT);
-  delay(3000);
+  pinMode(Fan_pin1, OUTPUT);
+  pinMode(Fan_pin2, OUTPUT);
+
   Serial.begin(9600);
   mySerial.begin(38400);
   myServo.attach(SERVO);
@@ -28,49 +27,77 @@ void setup() {
 }
 
 void loop() {
-  openfan();
-  if (manual) {
-    if (mySerial.available() > 0) {
-      var = mySerial.read();
-      // Serial.println(var);
-
-      if (var == "120") {
+  if (is_manual) {
+    if (mySerial.available()) {
+      data_received += mySerial.read();
+      Serial.print("New data: ");
+      Serial.println(data_received);
+      if (data_received == "120128") {
         digitalWrite(LED, HIGH);
-        myServo.write(0);
-        // Serial.println(var);
-      } else if (var == "0") {
+        myServo.write(0); // open window
+        Serial.println("window opened");
+        data_received = "";
+      } else if (data_received == "0128") {
         digitalWrite(LED, LOW);
-        myServo.write(90);
-        // Serial.println(var);
-      } else if (var == "248") {
-        manual = !manual;
-        // Serial.println(var);
+        myServo.write(90); // close window
+        Serial.println("window closed");
+        data_received = "";
+      } else if (data_received == "248128128") {
+        is_manual = !is_manual; // change mode
+        Serial.println("change mode");
+        data_received = "";
+      } else if (data_received == "0248128") {
+        openfan(); // run fan
+        Serial.println("fan running");
+        data_received = "";
+      } else if (data_received == "120248128") {
+        closefan(); // stop fan
+        Serial.println("fan stopped");
+        data_received = "";
+      } else if (data_received == "-1"){
+        data_received = "";
       }
     }
   }
   else{
     if (mySerial.available() > 0) {
-      var = mySerial.read();
-      // Serial.println(var);
-      if (var == "248") {
-        manual = !manual;
+      data_received += mySerial.read();
+      Serial.print("New data: ");
+      Serial.println(data_received);
+      if (data_received == "248128128") {
+        is_manual = !is_manual;
+        Serial.println("change mode"); // change mode
+        data_received = "";
       }
     }
-    int SensorValue = analogRead(A0);
+    SensorValue = analogRead(A0);
     Serial.println(SensorValue);
-    // while(analogRead(A0) > 400){
-    //   openfan()
-    // }
-    //closefan()
-    int led_analog_write = map(SensorValue, 0, 1023, 0, 255);
-    analogWrite(LED, led_analog_write);
     delay(1000);
+    while(analogRead(A0) > 200){
+      openfan();
+      SensorValue = analogRead(A0);
+      Serial.println(SensorValue);
+      int led_analog_write = map(SensorValue, 0, 1023, 0, 255);
+      analogWrite(LED, led_analog_write);
+    }
+    closefan();
     // mySerial.write(SensorValue);
   }
 }
 
+void openfan() {
+  digitalWrite(Fan_pin1, HIGH);
+  digitalWrite(Fan_pin2, LOW);
+}
+
+void closefan() {
+  digitalWrite(Fan_pin1, LOW);
+  digitalWrite(Fan_pin2, LOW);
+}
+
+// configuring hc-05
 void configure_HC05() {
-  digitalWrite(KEY, HIGH); // Set KEY high to enter AT mode
+  // digitalWrite(KEY, HIGH); // Set KEY high to enter AT mode
   delay(2000);
   Serial.println("Entering AT mode...");
   
@@ -121,17 +148,7 @@ void configure_HC05() {
     Serial.println("Failed to reset HC-05.");
   }
 
-  digitalWrite(KEY, LOW); // Set KEY low to exit AT mode
+  // digitalWrite(KEY, LOW); // Set KEY low to exit AT mode
   
   Serial.println("Bluetooth Ready!");
-}
-
-void openfan() {
-  digitalWrite(in1, HIGH);
-  digitalWrite(in2, LOW);
-}
-
-void closefan() {
-  digitalWrite(in1, LOW);
-  digitalWrite(in2, LOW);
 }

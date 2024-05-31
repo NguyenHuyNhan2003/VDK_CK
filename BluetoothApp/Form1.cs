@@ -231,6 +231,22 @@ namespace BluetoothApp
         {
             MessageBox.Show("Incoming Port: COM7 \nOutgoing Port: COM6", "Connection Port");
         }
+
+        private void buttonFanOn_Click(object sender, EventArgs e)
+        {
+            if (serialPortOutgoing.IsOpen)
+            {
+                serialPortOutgoing.Write("4");
+            }
+        }
+
+        private void buttonFanOff_Click(object sender, EventArgs e)
+        {
+            if (serialPortOutgoing.IsOpen)
+            {
+                serialPortOutgoing.Write("5");
+            }
+        }
     }
 
 }
