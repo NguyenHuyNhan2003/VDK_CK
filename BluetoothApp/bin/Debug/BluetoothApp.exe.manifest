@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BluetoothApp.exe" size="19888">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BluetoothApp.exe" size="20400">
       <assemblyIdentity name="BluetoothApp" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>7QeeAAYQ3Xu2MvAdrMpSczAK7fA8ZrahqOhKf02WzwU=</dsig:DigestValue>
+        <dsig:DigestValue>fYx/Z6MOIz2ffciwXcurqiPoCiKMxni/eQ/E9dRThDU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

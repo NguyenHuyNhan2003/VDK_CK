@@ -71,6 +71,10 @@ namespace BluetoothApp
 
         private void escapeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (serialPortOutgoing.IsOpen)
+            {
+                serialPortOutgoing.Write("2");
+            }
             serialPortOutgoing.Close();
             serialPortIncoming.Close();
             Application.Exit();
@@ -79,14 +83,12 @@ namespace BluetoothApp
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (!serialPortIncoming.IsOpen)
-
             {
                 labelPortInCon.Text = ("Chưa kết nối");
                 labelPortInCon.ForeColor = Color.Red;
             }
 
             else if (serialPortIncoming.IsOpen)
-
             {
 
                 labelPortInCon.Text = ("Đã kết nối");
@@ -119,22 +121,24 @@ namespace BluetoothApp
 
         private void buttonMode_Click(object sender, EventArgs e)
         {
-            if(labelMode.Text == "Manual")
+            if (serialPortOutgoing.IsOpen)
             {
-                labelMode.Text = "Auto";
-                labelMode.ForeColor = Color.Lime;
+                if (labelMode.Text == "Manual")
+                {
+                    labelMode.Text = "Auto";
+                    labelMode.ForeColor = Color.Lime;
+                }
+                else
+                {
+                    labelMode.Text = "Manual";
+                    labelMode.ForeColor = Color.Red;
+                }
+                serialPortOutgoing.Write("3");
             }
             else
             {
-                labelMode.Text = "Manual";
-                labelMode.ForeColor = Color.Red;
+                MessageBox.Show("( ・ω・)☞ Kết nối cổng ra trước (・ω・｀)", "No connection");
             }
-
-            if (serialPortOutgoing.IsOpen)
-            {
-                serialPortOutgoing.Write("3");
-            }
-
         }
 
         private void buttonConIn_Click(object sender, EventArgs e)
@@ -156,7 +160,7 @@ namespace BluetoothApp
                 }
                 else
                 {
-                    MessageBox.Show("Can't connect", "error");
+                    MessageBox.Show("(´・ω・`) Can't connect (´・ω・`)", "error");
                 }
 
             }
@@ -194,12 +198,12 @@ namespace BluetoothApp
                 }
                 else
                 {
-                    MessageBox.Show("Can't connect", "error");
+                    MessageBox.Show("(´・ω・`) Can't connect (´・ω・`)", "error");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "error");
+                MessageBox.Show(ex.Message, "(_ _。)");
             }
         }
 
@@ -218,6 +222,10 @@ namespace BluetoothApp
             if (serialPortOutgoing.IsOpen){
                 serialPortOutgoing.Write("1");
             }
+            else
+            {
+                MessageBox.Show("( ・ω・)☞ Kết nối cổng ra trước (・ω・｀)", "No connection");
+            }
         }
 
         private void buttonCloseWindow_Click(object sender, EventArgs e)
@@ -225,11 +233,15 @@ namespace BluetoothApp
             if (serialPortOutgoing.IsOpen){
                 serialPortOutgoing.Write("0");
             }
+            else
+            {
+                MessageBox.Show("( ・ω・)☞ Kết nối cổng ra trước (・ω・｀)", "No connection");
+            }
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Incoming Port: COM7 \nOutgoing Port: COM6", "Connection Port");
+            MessageBox.Show("( ・ω・)☞ Nothing to see here （＞ω・)ノ♥", "");
         }
 
         private void buttonFanOn_Click(object sender, EventArgs e)
@@ -238,6 +250,10 @@ namespace BluetoothApp
             {
                 serialPortOutgoing.Write("4");
             }
+            else
+            {
+                MessageBox.Show("( ・ω・)☞ Kết nối cổng ra trước (・ω・｀)", "No connection");
+            }
         }
 
         private void buttonFanOff_Click(object sender, EventArgs e)
@@ -245,6 +261,10 @@ namespace BluetoothApp
             if (serialPortOutgoing.IsOpen)
             {
                 serialPortOutgoing.Write("5");
+            }
+            else
+            {
+                MessageBox.Show("( ・ω・)☞ Kết nối cổng ra trước (・ω・｀)", "No connection");
             }
         }
     }
