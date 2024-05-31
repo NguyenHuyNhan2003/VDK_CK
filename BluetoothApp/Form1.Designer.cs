@@ -75,27 +75,27 @@
             this.escapeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(874, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(874, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // menuToolStripMenuItem
             // 
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
-            this.menuToolStripMenuItem.Size = new System.Drawing.Size(60, 24);
+            this.menuToolStripMenuItem.Size = new System.Drawing.Size(60, 26);
             this.menuToolStripMenuItem.Text = "Menu";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(49, 24);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(49, 26);
             this.toolStripMenuItem1.Text = "Info";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // escapeToolStripMenuItem
             // 
             this.escapeToolStripMenuItem.Name = "escapeToolStripMenuItem";
-            this.escapeToolStripMenuItem.Size = new System.Drawing.Size(69, 24);
+            this.escapeToolStripMenuItem.Size = new System.Drawing.Size(69, 26);
             this.escapeToolStripMenuItem.Text = "Escape";
             this.escapeToolStripMenuItem.Click += new System.EventHandler(this.escapeToolStripMenuItem_Click);
             // 
@@ -214,12 +214,12 @@
             // 
             this.labelMode.AutoSize = true;
             this.labelMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMode.ForeColor = System.Drawing.Color.Red;
+            this.labelMode.ForeColor = System.Drawing.Color.Lime;
             this.labelMode.Location = new System.Drawing.Point(264, 445);
             this.labelMode.Name = "labelMode";
-            this.labelMode.Size = new System.Drawing.Size(77, 25);
+            this.labelMode.Size = new System.Drawing.Size(53, 25);
             this.labelMode.TabIndex = 12;
-            this.labelMode.Text = "Manual";
+            this.labelMode.Text = "Auto";
             // 
             // buttonOpenWindow
             // 
