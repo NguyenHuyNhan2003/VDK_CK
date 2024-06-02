@@ -112,6 +112,7 @@ namespace BluetoothApp
         {
             if (serialPortOutgoing.IsOpen)
             {
+                serialPortOutgoing.Write("2");
                 serialPortOutgoing.Close();
                 labelPortOutCon.Text = ("Chưa kết nối");
                 labelPortOutCon.ForeColor = Color.Red;
