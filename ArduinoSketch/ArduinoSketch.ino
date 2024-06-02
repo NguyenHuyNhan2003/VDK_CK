@@ -17,7 +17,6 @@ SoftwareSerial mySerial(8, 9); // RX | TX
 bool is_manual = false;
 bool found_new_data = false;
 String data_received;
-int SensorValue = 0;
 
 void setup() {
   // pinMode(KEY, OUTPUT);
@@ -36,6 +35,9 @@ void setup() {
 }
 
 void loop() {
+
+  // find_LCD_I2C();
+
   handle_received_data();
   if (!found_new_data){
     int SensorValue = analogRead(A0);
@@ -54,13 +56,19 @@ void loop() {
     Display_On_LCD(SensorValue, mode);
     delay(1000);
 
-    int led_analog_write = map(SensorValue, 0, 1023, 0, 255);
-    analogWrite(LED, led_analog_write);
+    // int led_analog_write = map(SensorValue, 0, 1023, 0, 255);
+    // analogWrite(LED, led_analog_write);
 
-    if(!is_manual && SensorValue >= 200){
+    if (SensorValue >= 700){
+      digitalWrite(LED, HIGH);
+    } else {
+      digitalWrite(LED, LOW);
+    }
+
+    if(!is_manual && SensorValue >= 700){ // detect smoke
       myServo.write(0);
       openfan();
-    }else if (!is_manual && SensorValue < 200){
+    }else if (!is_manual && SensorValue < 700){
       myServo.write(90);
       closefan();
     }
@@ -73,34 +81,34 @@ void handle_received_data(){
     data_received += mySerial.read();
     found_new_data = true;
 
-    Serial.print("New data: ");
-    Serial.println(data_received);
+    // Serial.print("New data: ");
+    // Serial.println(data_received);
     if (data_received == "120128" && is_manual) {
       myServo.write(0); // open window
-      Serial.println("window opened");
+      Serial.println("Window opened");
       data_received = "";
       found_new_data = false;
     } else if (data_received == "0128" && is_manual) {
       myServo.write(90); // close window
-      Serial.println("window closed");
+      Serial.println("Window closed");
       data_received = "";
       found_new_data = false;
     } else if (data_received == "248128128") {
       is_manual = !is_manual; // change mode
-      Serial.println("change mode");
+      Serial.println("Change mode");
       data_received = "";
       found_new_data = false;
     } else if (data_received == "0248128" && is_manual) {
       openfan(); // run fan
-      Serial.println("fan running");
+      Serial.println("Fan running");
       data_received = "";
       found_new_data = false;
     } else if (data_received == "120248128" && is_manual) {
       closefan(); // stop fan
-      Serial.println("fan stopped");
+      Serial.println("Fan stopped");
       data_received = "";
       found_new_data = false;
-    } else if (data_received == "-1"){
+    } else if (data_received == "-1" || data_received.length() > 9){
       data_received = "";
     } else if ((data_received == "0128" || data_received == "120128" || data_received == "0248128"  || data_received == "120248128") && is_manual == false) {
       data_received = "";
@@ -109,6 +117,7 @@ void handle_received_data(){
       is_manual = false;
       data_received = "";
       found_new_data = false;
+      Serial.println("Auto mode");
     }
   }
 }
@@ -116,9 +125,24 @@ void handle_received_data(){
 void Display_On_LCD(int sensorValue, String mode){
   lcd.clear();
   lcd.setCursor(0, 0);
-  lcd.print(mode + " Mode: ");
+  // lcd.print(mode + " Mode: ");
+  // lcd.setCursor(0, 1);
+  // lcd.print(sensorValue);
+
+  lcd.print(mode + " Mode: " + String(sensorValue));
+  
+  // Calculate the number of characters to black out
+  int blackBlocks  = map(sensorValue, 0, 1023, 0, 16);
+  
   lcd.setCursor(0, 1);
-  lcd.print(sensorValue);
+  for (int i = 0; i < 16; i++) {
+      if (i < blackBlocks) {
+          lcd.write(0xFF); // Write black block character
+      } else {
+          lcd.print(" "); // Write space character
+      }
+  }
+
 }
 
 void openfan() {
@@ -187,4 +211,43 @@ void configure_HC05() {
   // digitalWrite(KEY, LOW); // Set KEY low to exit AT mode
   
   Serial.println("Bluetooth Ready!");
+}
+
+
+void find_LCD_I2C(){
+  byte error, address;
+  int nDevices;
+  Serial.println("Scanning...");
+ 
+  nDevices = 0;
+  for(address = 1; address < 127; address++ )
+  {
+    // The i2c_scanner uses the return value of
+    // the Write.endTransmisstion to see if
+    // a device did acknowledge to the address.
+    Wire.beginTransmission(address);
+    error = Wire.endTransmission();
+ 
+    if (error == 0)
+    {
+      Serial.print("I2C device found at address 0x");
+      if (address<16)
+        Serial.print("0");
+      Serial.print(address,HEX);
+      Serial.println("  !");
+ 
+      nDevices++;
+    }
+    else if (error==4)
+    {
+      Serial.print("Unknown error at address 0x");
+      if (address<16)
+        Serial.print("0");
+      Serial.println(address,HEX);
+    }    
+  }
+  if (nDevices == 0)
+    Serial.println("No I2C devices found\n");
+  else
+    Serial.println("done\n");
 }
