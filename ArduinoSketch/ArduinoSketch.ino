@@ -17,7 +17,6 @@ SoftwareSerial mySerial(8, 9); // RX | TX
 bool is_manual = false;
 bool found_new_data = false;
 String data_received;
-int SensorValue = 0;
 
 void setup() {
   // pinMode(KEY, OUTPUT);
@@ -30,7 +29,7 @@ void setup() {
   lcd.backlight();
 
   Serial.begin(9600);
-  mySerial.begin(38400);
+  mySerial.begin(9600);
   myServo.attach(SERVO);
   // configure_HC05();
 }
@@ -57,10 +56,10 @@ void loop() {
     int led_analog_write = map(SensorValue, 0, 1023, 0, 255);
     analogWrite(LED, led_analog_write);
 
-    if(!is_manual && SensorValue >= 200){
+    if(!is_manual && SensorValue >= 800){ // detect smoke
       myServo.write(0);
       openfan();
-    }else if (!is_manual && SensorValue < 200){
+    }else if (!is_manual && SensorValue < 700){
       myServo.write(90);
       closefan();
     }
@@ -100,7 +99,7 @@ void handle_received_data(){
       Serial.println("fan stopped");
       data_received = "";
       found_new_data = false;
-    } else if (data_received == "-1"){
+    } else if (data_received == "-1" || data_received.length() > 9){
       data_received = "";
     } else if ((data_received == "0128" || data_received == "120128" || data_received == "0248128"  || data_received == "120248128") && is_manual == false) {
       data_received = "";
@@ -119,6 +118,21 @@ void Display_On_LCD(int sensorValue, String mode){
   lcd.print(mode + " Mode: ");
   lcd.setCursor(0, 1);
   lcd.print(sensorValue);
+  /*
+  lcd.print(mode + " Mode: " + String(sensorValue));
+  
+  // Calculate the number of characters to black out
+  int blackBlocks  = map(sensorValue, 0, 1023, 0, 16);
+  
+  lcd.setCursor(0, 1);
+  for (int i = 0; i < 16; i++) {
+      if (i < blackBlocks) {
+          lcd.write(0xFF); // Write black block character
+      } else {
+          lcd.print(" "); // Write space character
+      }
+  }
+  */
 }
 
 void openfan() {
