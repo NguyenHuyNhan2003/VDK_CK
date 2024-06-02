@@ -9,6 +9,7 @@
 - Mở file BluetoothApp.slm
 - Bấm Start
 4. Điều khiển hệ thống:
+  
   ![image](https://github.com/NguyenHuyNhan2003/VDK_CK/assets/124428721/69d42810-4b58-4265-8d4a-bd2f42892a8e)
 
 - Chọn cổng ra để kết nối với HC-05 đã xác định trong mục 2.
