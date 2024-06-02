@@ -29,42 +29,43 @@ void setup() {
   lcd.backlight();
 
   Serial.begin(9600);
-  mySerial.begin(9600);
+  mySerial.begin(38400);
   myServo.attach(SERVO);
   // configure_HC05();
 }
 
 void loop() {
-  handle_received_data();
-  if (!found_new_data){
-    int SensorValue = analogRead(A0);
+  // handle_received_data();
+  // if (!found_new_data){
+  //   int SensorValue = analogRead(A0);
 
-    String mode = "";
-    if (is_manual){
-      mode = "Manual";
-    }
-    else{
-      mode = "Auto";
-    }
+  //   String mode = "";
+  //   if (is_manual){
+  //     mode = "Manual";
+  //   }
+  //   else{
+  //     mode = "Auto";
+  //   }
     
-    Serial.print(mode);
-    Serial.print(" Mode: ");
-    Serial.println(SensorValue);
-    Display_On_LCD(SensorValue, mode);
-    delay(1000);
+  //   Serial.print(mode);
+  //   Serial.print(" Mode: ");
+  //   Serial.println(SensorValue);
+  //   Display_On_LCD(SensorValue, mode);
+  //   delay(1000);
 
-    int led_analog_write = map(SensorValue, 0, 1023, 0, 255);
-    analogWrite(LED, led_analog_write);
+  //   int led_analog_write = map(SensorValue, 0, 1023, 0, 255);
+  //   analogWrite(LED, led_analog_write);
 
-    if(!is_manual && SensorValue >= 800){ // detect smoke
-      myServo.write(0);
-      openfan();
-    }else if (!is_manual && SensorValue < 700){
-      myServo.write(90);
-      closefan();
-    }
-  }
+  //   if(!is_manual && SensorValue >= 800){ // detect smoke
+  //     myServo.write(0);
+  //     openfan();
+  //   }else if (!is_manual && SensorValue < 700){
+  //     myServo.write(90);
+  //     closefan();
+  //   }
+  // }
   // mySerial.write(SensorValue);
+  openfan();
 }
 
 void handle_received_data(){
@@ -72,8 +73,8 @@ void handle_received_data(){
     data_received += mySerial.read();
     found_new_data = true;
 
-    Serial.print("New data: ");
-    Serial.println(data_received);
+    // Serial.print("New data: ");
+    // Serial.println(data_received);
     if (data_received == "120128" && is_manual) {
       myServo.write(0); // open window
       Serial.println("window opened");

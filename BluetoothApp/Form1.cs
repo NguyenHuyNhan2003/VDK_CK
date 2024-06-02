@@ -56,7 +56,7 @@ namespace BluetoothApp
             private void Form1_Load(object sender, EventArgs e)
         {
             comboBoxPortOut.DataSource = SerialPort.GetPortNames();
-            comboBoxBaudOut.SelectedIndex = 3;
+            comboBoxBaudOut.SelectedIndex = 5;
         }
 
         private void buttonMode_Click(object sender, EventArgs e)
@@ -115,6 +115,8 @@ namespace BluetoothApp
                 serialPortOutgoing.Close();
                 labelPortOutCon.Text = ("Chưa kết nối");
                 labelPortOutCon.ForeColor = Color.Red;
+                labelMode.Text = "Auto";
+                labelMode.ForeColor = Color.Lime;
             }
         }
 
